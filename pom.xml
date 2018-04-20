@@ -1,17 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.mycompany.app</groupId>
-  <artifactId>my-app</artifactId>
+  <groupId>com.scmgalaxy.mavensample</groupId>
+  <artifactId>my-maven</artifactId>
   <packaging>jar</packaging>
-  <version>1.0</version>
-  <name>my-app</name>
+  <version>2.0.0</version>
+  <name>my-maven</name>
   <url>http://maven.apache.org</url>
-
-  <properties>
-      <!-- This property will be set by the Maven Dependency plugin -->
-      <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
-  </properties>
+	
+<properties>
+  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
 
   <dependencies>
     <dependency>
@@ -20,94 +19,34 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-        <groupId>org.checkerframework</groupId>
-        <artifactId>checker</artifactId>
-        <version>1.9.4</version>
-    </dependency>
-    <dependency>
-        <groupId>org.checkerframework</groupId>
-        <artifactId>checker-qual</artifactId>
-        <version>1.9.4</version>
-    </dependency>
-    <dependency>
-        <groupId>org.checkerframework</groupId>
-        <artifactId>jdk8</artifactId>
-        <version>1.9.4</version>
-    </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-	<groupId>org.codehaus.mojo</groupId>
-	<artifactId>exec-maven-plugin</artifactId>
-	<version>1.2.1</version>
-	<executions>
-	  <execution>
-	    <goals>
-	      <goal>java</goal>
-	    </goals>
-	  </execution>
-	</executions>
-	<configuration>
-	  <mainClass>com.mycompany.app.App</mainClass>
-	  <arguments>
-	    <argument>argument1</argument>
-	  </arguments>
-	</configuration>
-      </plugin>
-      <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-shade-plugin</artifactId>
-	<version>2.1</version>
-	<executions>
-	  <execution>
-	    <phase>package</phase>
-	    <goals>
-	      <goal>shade</goal>
-	    </goals>
-	    <configuration>
-	      <transformers>
-		<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-		  <mainClass>com.mycompany.app.App</mainClass>
-		</transformer>
-	      </transformers>
-	    </configuration>
-	  </execution>
-	</executions>
-      </plugin>
-      <plugin>
-          <!-- This plugin will set the properties values using dependency information -->
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <version>2.3</version>
-          <executions>
-              <execution>
-                  <goals>
-                      <goal>properties</goal>
-                  </goals>
-              </execution>
-          </executions>
-      </plugin>
-      <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-		      <fork>true</fork>
-              <executable>C:\Program Files\Java\jdk1.8.0_161\bin\javac.exe</executable>
-              <!-- Add all the checkers you want to enable here -->
-              <annotationProcessors>
-                  <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
-              </annotationProcessors>
-              <compilerArgs>
-                  <!-- location of the annotated JDK, which comes from a Maven dependency -->
-                  <arg>-Xbootclasspath/p:${annotatedJdk}</arg>
-              </compilerArgs>
-          </configuration>
-      </plugin>
-    </plugins>
-  </build>
   
-  <distributionManagement>
+  <build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-javadoc-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>attach-javadocs</id>
+					<goals>
+						<goal>jar</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>		
+        <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+                <fork>true</fork>
+                <executable>C:\Program Files\Java\jdk1.8.0_161\bin\javac.exe</executable>
+            </configuration>
+        </plugin>	
+	</plugins>
+	</build>
+  
+<distributionManagement>
     <repository>
         <id>deployment</id>
         <name>test1-releases</name>
@@ -119,6 +58,9 @@
         <url>http://192.168.211.3:8081/nexus/content/repositories/testsnp/</url>
     </snapshotRepository>
 </distributionManagement>
-  
-  
+
+
+
+
+
 </project>
