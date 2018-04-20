@@ -4,7 +4,7 @@
   <groupId>com.mycompany.app</groupId>
   <artifactId>my-app</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>my-app</name>
   <url>http://maven.apache.org</url>
 
@@ -92,9 +92,8 @@
       <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
-              <source>1.8</source>
-              <target>1.8</target>
-              <fork>true</fork>
+		      <fork>true</fork>
+              <executable>C:\Program Files\Java\jdk1.8.0_161\bin\javac.exe</executable>
               <!-- Add all the checkers you want to enable here -->
               <annotationProcessors>
                   <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
@@ -107,4 +106,19 @@
       </plugin>
     </plugins>
   </build>
+  
+  <distributionManagement>
+    <repository>
+        <id>deployment</id>
+        <name>test1-releases</name>
+        <url>http://192.168.211.3:8081/nexus/content/repositories/test/</url>
+    </repository>
+    <snapshotRepository>
+        <id>deployment</id>
+        <name>testSnapshot-releases</name>
+        <url>http://192.168.211.3:8081/nexus/content/repositories/testsnp/</url>
+    </snapshotRepository>
+</distributionManagement>
+  
+  
 </project>
